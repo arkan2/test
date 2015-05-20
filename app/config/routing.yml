@@ -1,0 +1,12 @@
+core_main:
+    resource: "@CoreMainBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+core_service:
+    resource: "@CoreServiceBundle/Controller/"
+    type: annotation
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

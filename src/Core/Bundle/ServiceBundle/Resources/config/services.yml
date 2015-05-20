@@ -1,0 +1,3 @@
+services:
+  core_bundle.servicebundle.service.httpservicegateway:
+      class: Core\Bundle\ServiceBundle\Service\HttpServiceGateway
