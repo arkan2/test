@@ -20,6 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('core_service');
 
+        $rootNode
+            ->children()
+                ->scalarNode('auth_method')->defaultValue('oauth2')->end()
+                ->arrayNode('oauth')
+                    ->children()
+                        ->scalarNode('client_id')->cannotBeEmpty()->end()
+                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
+                        ->scalarNode('scope')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

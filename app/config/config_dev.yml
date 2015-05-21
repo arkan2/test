@@ -46,3 +46,10 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+core_service:
+    auth_method: oauth2
+    oauth:
+      client_id: fgdfg
+      client_secret: fgdfg
+      scope: api-internal

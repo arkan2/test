@@ -17,6 +17,9 @@ class DefaultController extends Controller
      */
     public function indexAction($name)
     {
+        $this->get('api_service')->execute();
+
+
         return $this->render('CoreServiceBundle:Default:index.html.twig', array('name' => $name));
     }
 }

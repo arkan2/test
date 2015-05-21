@@ -24,5 +24,19 @@ class CoreServiceExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        // Setup service authentication
+        switch($config['auth_method']) {
+            case 'oauth';
+                $oauthConfig = array(
+                    $container->getParameter('servicebundle.api.protocol'),
+                    $container->getParameter('servicebundle.api.host'),
+                    $container->getParameter('servicebundle.oauth.endpoint')
+                ) + $config['oauth'];
+
+                $apiServiceDefinition = $container->getDefinition('api_service');
+                $apiServiceDefinition->addMethodCall('configureOauth', $oauthConfig);
+                break;
+        }
     }
 }

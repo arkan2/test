@@ -1,3 +1,4 @@
 services:
-  core_bundle.servicebundle.service.httpservicegateway:
+  api_service:
       class: Core\Bundle\ServiceBundle\Service\HttpServiceGateway
+      arguments: ['%servicebundle.api.protocol%', '%servicebundle.api.host%', '%servicebundle.api.endpoint%']

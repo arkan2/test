@@ -18,3 +18,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # API configuration
+    servicebundle.api.protocol: https
+    servicebundle.api.host: dev-sdetrev.web-fr-front-19.boursorama.com
+    servicebundle.oauth.endpoint: /oauth/access_token/
+    servicebundle.api.endpoint: /services/api/
