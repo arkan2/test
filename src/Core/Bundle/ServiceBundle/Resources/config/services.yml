@@ -1,4 +1,19 @@
+parameters:
+    service_factory.class: Core\Bundle\ServiceBundle\Service\ServiceFactory
+    service_manager.class: Core\Bundle\ServiceBundle\Service\ServiceManager
+
 services:
-  api_service:
-      class: Core\Bundle\ServiceBundle\Service\HttpServiceGateway
-      arguments: ['%servicebundle.api.protocol%', '%servicebundle.api.host%', '%servicebundle.api.endpoint%']
+    service_manager:
+        class: '%service_manager.class%'
+        arguments: ['%servicebundle.api.protocol%', '%servicebundle.api.host%', '%servicebundle.api.endpoint%']
+
+    service_http_client:
+        class: '%core_service.httpclient.class%'
+        factory_class:  '%service_factory.class%'
+        factory_method: buildHttpClient
+        arguments: ['%core_service.httpclient.class%','@service_manager']
+
+    data_collector.http_data_collector:
+        class: Core\Bundle\ServiceBundle\DataCollector\HttpDataCollector
+        tags:
+            - { name: data_collector, template: "CoreServiceBundle:collector:http", id: "http_profiling" }

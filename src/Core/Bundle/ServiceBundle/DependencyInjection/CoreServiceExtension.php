@@ -27,15 +27,18 @@ class CoreServiceExtension extends Extension
 
         // Setup service authentication
         switch($config['auth_method']) {
-            case 'oauth';
+            case 'oauth2';
                 $oauthConfig = array(
                     $container->getParameter('servicebundle.api.protocol'),
                     $container->getParameter('servicebundle.api.host'),
                     $container->getParameter('servicebundle.oauth.endpoint')
-                ) + $config['oauth'];
+                ) + $config['oauth2'];
 
-                $apiServiceDefinition = $container->getDefinition('api_service');
+                $container->setParameter('core_service.httpclient.class', $config['httpclient']['class']);
+
+                $apiServiceDefinition = $container->getDefinition('service_manager');
                 $apiServiceDefinition->addMethodCall('configureOauth', $oauthConfig);
+                $apiServiceDefinition->addMethodCall('setVerifySsl', array($config['verify_ssl']));
                 break;
         }
     }

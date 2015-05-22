@@ -22,14 +22,20 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('httpclient')
+                    ->children()
+                        ->scalarNode('class')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
                 ->scalarNode('auth_method')->defaultValue('oauth2')->end()
-                ->arrayNode('oauth')
+                ->arrayNode('oauth2')
                     ->children()
                         ->scalarNode('client_id')->cannotBeEmpty()->end()
                         ->scalarNode('client_secret')->cannotBeEmpty()->end()
                         ->scalarNode('scope')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
+                ->booleanNode('verify_ssl')->defaultValue(true)->end()
             ->end()
         ;
 

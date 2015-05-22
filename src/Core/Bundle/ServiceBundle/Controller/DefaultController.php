@@ -13,13 +13,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{name}")
+     * @Route("/")
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        $this->get('api_service')->execute();
-
-
-        return $this->render('CoreServiceBundle:Default:index.html.twig', array('name' => $name));
+        var_dump($this->get('service_http_client')->get('v1.5/feed/instrument/quotes/1rPGLE'));
+        return $this->render('CoreServiceBundle:Default:index.html.twig', array('name' => ''));
     }
 }

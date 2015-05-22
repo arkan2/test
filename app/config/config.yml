@@ -76,8 +76,11 @@ swiftmailer:
 
 #Default service bundle configuration
 core_service:
+    httpclient:
+        class: GuzzleHttp\Client
     auth_method: oauth2
-    oauth:
-      client_id: fgdfg
-      client_secret: fgdfg
-      scope: api-internal
+    oauth2:
+        client_id: fgdfg
+        client_secret: fgdfg
+        scope: api-internal
+    verify_ssl: true
