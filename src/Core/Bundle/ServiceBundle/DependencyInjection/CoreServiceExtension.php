@@ -25,6 +25,8 @@ class CoreServiceExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        $apiServiceDefinition = $container->getDefinition('service_manager');
+
         // Setup service authentication
         switch($config['auth_method']) {
             case 'oauth2';
@@ -34,12 +36,13 @@ class CoreServiceExtension extends Extension
                     $container->getParameter('servicebundle.oauth.endpoint')
                 ) + $config['oauth2'];
 
-                $container->setParameter('core_service.httpclient.class', $config['httpclient']['class']);
-
-                $apiServiceDefinition = $container->getDefinition('service_manager');
                 $apiServiceDefinition->addMethodCall('configureOauth', $oauthConfig);
-                $apiServiceDefinition->addMethodCall('setVerifySsl', array($config['verify_ssl']));
                 break;
+        }
+
+        // HTTP settings
+        if(isset($config['verify_ssl'])) {
+            $apiServiceDefinition->addMethodCall('setVerifySsl', array($config['verify_ssl']));
         }
     }
 }

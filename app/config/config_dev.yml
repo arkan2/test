@@ -48,11 +48,13 @@ assetic:
 #    delivery_address: me@example.com
 
 core_service:
-    httpclient:
-        class: GuzzleHttp\Client
     auth_method: oauth2
     oauth2:
-      client_id: fgdfg
-      client_secret: fgdfg
-      scope: api-internal
+        client_id: 289d4f5894ba3077dc676cf8afb56a7b8da7e201
+        client_secret: 8TfrlcPMGVAGVj4QRgeAhH-owz0GsyExZzyXsOsSidvmZYrRNeLj0pe02_W5vX_I
+        scope: api-internal
     verify_ssl: false
+
+encrypted_cookie_session:
+    secret: dfgju./dos*gur564ncngze624
+    name:sd

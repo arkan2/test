@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Bundle\ServiceBundle\DependencyInjection;
+namespace Core\Bundle\EncryptedCookieSessionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,19 +18,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('core_service');
+        $rootNode = $treeBuilder->root('encrypted_cookie_session');
 
         $rootNode
             ->children()
-                ->scalarNode('auth_method')->defaultValue('oauth2')->end()
-                ->arrayNode('oauth2')
-                    ->children()
-                        ->scalarNode('client_id')->cannotBeEmpty()->end()
-                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
-                        ->scalarNode('scope')->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
-                ->booleanNode('verify_ssl')->defaultValue(true)->end()
+                ->scalarNode('secret')->cannotBeEmpty()->end()
+                ->scalarNode('name')->cannotBeEmpty()->end()
             ->end()
         ;
 

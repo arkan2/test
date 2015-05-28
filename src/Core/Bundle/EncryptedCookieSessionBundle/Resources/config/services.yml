@@ -1,0 +1,10 @@
+services:
+    encrypted_cookie_session.handler:
+        class: Core\Bundle\EncryptedCookieSessionBundle\Security\Session\EncryptedCookieSessionHandler
+        arguments: ['%encrypted_cookie_session_secret%', '%encrypted_cookie_session_name%']
+        calls:
+            - [setLogger, [@logger]]
+        tags:
+            - { name: monolog.logger, channel: session }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 9998 }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -9998 }

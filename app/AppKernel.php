@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Core\Bundle\ServiceBundle\CoreServiceBundle(),
             new Core\Bundle\MainBundle\CoreMainBundle(),
+            new Core\Bundle\EncryptedCookieSessionBundle\EncryptedCookieSessionBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

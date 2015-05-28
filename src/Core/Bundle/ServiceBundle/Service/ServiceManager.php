@@ -8,6 +8,8 @@ class ServiceManager
 
     protected $baseUrl = '';
 
+    protected $version = 'v1.0';
+
     protected $oauthConfig = array(
         'oauth_url' => '',
         'oauth_client_id' => '',
@@ -20,9 +22,12 @@ class ServiceManager
      * @param $apiHost
      * @param $apiEndpoint
      */
-    public function __construct($apiProto, $apiHost, $apiEndpoint)
+    public function __construct($apiProto, $apiHost, $apiEndpoint, $version = '')
     {
-        $this->baseUrl = $apiProto.'://'.$apiHost.'/'.$apiEndpoint;
+        $this->baseUrl = $apiProto.'://'.$apiHost.$apiEndpoint;
+        if(!empty($version)) {
+            $this->setVersion($version);
+        }
     }
 
     /**
@@ -34,7 +39,8 @@ class ServiceManager
      */
     public function configureOauth($oauthProto, $oauthHost, $oauthEndpoint, $oauthClientId, $oauthClientSecret, $oauthScope) {
         $this->oauthConfig = array_merge($this->oauthConfig, array(
-            'oauth_url' => $oauthProto.'://'.$oauthHost.'/'.$oauthEndpoint,
+            'oauth_base_url' => $oauthProto.'://'.$oauthHost,
+            'oauth_token_url' => $oauthEndpoint,
             'oauth_client_id' => $oauthClientId,
             'oauth_client_secret' => $oauthClientSecret,
             'oauth_scope' => $oauthScope
@@ -46,7 +52,7 @@ class ServiceManager
      */
     public function getBaseUrl()
     {
-        return $this->baseUrl;
+        return $this->baseUrl.$this->version.'/';
     }
 
     /**
@@ -76,6 +82,23 @@ class ServiceManager
     public function setVerifySsl($verifySsl)
     {
         $this->verifySsl = $verifySsl;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
 
 }

@@ -1,0 +1,3 @@
+encrypted_cookie_session_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EncryptedCookieSessionBundle:Default:index }
