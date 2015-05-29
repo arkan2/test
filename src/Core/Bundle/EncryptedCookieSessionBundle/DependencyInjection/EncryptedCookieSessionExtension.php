@@ -22,8 +22,8 @@ class EncryptedCookieSessionExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('encrypted_cookie_session_secret',$config['encrypted_cookie_session.secret']);
-        $container->setParameter('encrypted_cookie_session_name',$config['encrypted_cookie_session.name']);
+        $container->setParameter('encrypted_cookie_session_secret',$config['secret']);
+        $container->setParameter('encrypted_cookie_session_name',$config['name']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

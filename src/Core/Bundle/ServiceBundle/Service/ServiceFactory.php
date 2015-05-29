@@ -2,7 +2,7 @@
 
 namespace Core\Bundle\ServiceBundle\Service;
 use CommerceGuys\Guzzle\Oauth2\GrantType\ClientCredentials;
-use CommerceGuys\Guzzle\Oauth2\Oauth2Subscriber;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ServiceFactory
 {
@@ -10,7 +10,7 @@ class ServiceFactory
      * @param $class
      * @return Client
      */
-    public static function buildHttpClient(ServiceManager $serviceManager) {
+    public static function buildHttpClient(ServiceManager $serviceManager, Session $session) {
         $oauth2Client = new HttpClient([
             'base_url' => $serviceManager->getOauthConfig('oauth_base_url'),
             'defaults' => [
@@ -26,8 +26,9 @@ class ServiceFactory
             'token_url' => $serviceManager->getOauthConfig('oauth_token_url')
         ];
 
-        $token = new ClientCredentials($oauth2Client, $config);
-        $oauth2 = new OauthSubscriber($token);
+        $grantType = new ClientCredentials($oauth2Client, $config);
+        $oauth2 = new OauthSubscriber($grantType);
+        $oauth2->setStorage($session);
 
         $httpClient = new HttpClient([
             'base_url' => $serviceManager->getBaseUrl(),

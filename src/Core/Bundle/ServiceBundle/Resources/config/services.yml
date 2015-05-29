@@ -17,4 +17,4 @@ services:
         class: '%http_client.class%'
         factory_class:  '%service_factory.class%'
         factory_method: buildHttpClient
-        arguments: ['@service_manager']
+        arguments: ['@service_manager', '@session']

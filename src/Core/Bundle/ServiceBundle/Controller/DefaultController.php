@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class DefaultController
@@ -18,7 +19,7 @@ class DefaultController extends Controller
     /**
      * @Route("/")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         try {
             /*$httpClient = new Client(array('base_url'=>'https://dev-sdetrev.web-fr-front-19.boursorama.com/services/api/v1.0/'));
@@ -29,7 +30,7 @@ class DefaultController extends Controller
             var_dump($response->getBody()->getContents());*/
 
             $httpClient = $this->get('service_http_client');
-            var_dump($httpClient->get('feed/instrument/quotes/1rPGLE'));
+            $httpClient->get('feed/instrument/quotes/1rPGLE');
         }
         catch(RequestException $e) {
             var_dump($e);
